@@ -42,7 +42,7 @@ function bl_api_get_call($request,$method,$params,$post)
 	$params=explode("&",$params);
 	sort($params);
 	$params=implode($params,"&")."&";
-	$params=substr_replace(",","%2C",$params);
+	$params=str_replace(",","%2C",$params);
     $auth=auth_create($method,$request,$params);
 	$curl_url=$request."?".$params."Authorization=".$auth;
 	if(!mb_detect_encoding($curl_url,'UTF-8',true)) //check if request is UTF-8 encoded
