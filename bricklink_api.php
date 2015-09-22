@@ -13,10 +13,12 @@ define("TOKEN_SECRET",""); // TokenSecret from bricklink
 define("URL_API","https://api.bricklink.com/api/store/v1");
 //Example code
 //$request must be in form provided by bricklink API wiki for URI
-$method='POST';$request='/inventories';$params='{"item": {"no":"sw571", "type":"MINIFIG"}, "color_id":"0", "quantity":"12", "new_or_used":"U", "unit_price":"1.2000", "description":"Testing", "remarks":"No Remarks", "bulk":"1", "is_retain":"false", "is_stock_room":"true", "date_created":'.time().', "sale_rate":"0", "my_cost":"1.0000"}';
-
+$method='GET';
+$request='/items/set/10123-1/subsets';
+$params='box=true&instruction=true&break_minifigs=false&break_subsets=false';
 //must be format '{"key":"value"}' singleqoute surrounding doubleqoutes, or 
 //malformed JSON error
+//exception is time, which may be '"date_created":'.time().'
 $result=bl_api_get_call($request,$method,$params);
 print $result;
 
