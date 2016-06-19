@@ -2,14 +2,21 @@
 namespace PHPBricklinkAPI;
 
 class BricklinkApiResponse{
-	 public $code;
-	 public $results;
+	 protected $code;
+	 protected $hasError;
+	 protected $errorMessage;
+	 protected $results;
 	 private $rawResponse;
 
 	 public function __construct($ch, $response){
 		 	$this->rawResponse = $response;
-			$this->code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			$this->results = json_decode($response);
+			$responseObject = json_decode($response);
+			$this->code = $responseObject->meta->code;
+			if($this->hasError = ($this->code !== 200)){
+				$this->errorMessage = $responseObject->meta->description;
+			}else{
+				$this->results = $responseObject->data;
+			}
 	 }
 
 	 public function asJson(){

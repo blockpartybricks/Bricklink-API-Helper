@@ -3,16 +3,16 @@
 
  class BricklinkApi{
  	private $endpoint = 'https://api.bricklink.com/api/store/v1';
- 	private $tokenValue = null;
- 	private $tokenSecrect = null;
- 	private $consumerKey = null;
- 	private $consumerSecret = null;
+ 	private $tokenValue;
+ 	private $tokenSecrect;
+ 	private $consumerKey;
+ 	private $consumerSecret;
  	private $isDevelopment = false;
    private $oauthVersion = '1.0';
 
  	public function __construct($params){
  		foreach($params as $key=>$value){
- 			if(isset($this->{$key})){
+      if(property_exists($this,$key)){
  				$this->{$key} = $value;
  			}
  		}
@@ -56,7 +56,7 @@
  	    if($request->method=='POST')
  	    {
  	        curl_setopt($ch, CURLOPT_POST, 1);
- 	        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params)));
+ 	        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
  	    }
 
  	    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -76,11 +76,11 @@
          'oauth_version' => $this->oauthVersion,
  		    'oauth_consumer_key' => $this->consumerKey,
          'oauth_token' => $this->tokenValue,
- 		    'oauth_timestamp' => time(),
+ 		    'oauth_timestamp' => (string) time(),
  		    'oauth_nonce' => $random,
  		    'oauth_signature_method' => 'HMAC-SHA1'];
      //Add authorization signature
-     $authorization['oauth_signature'] = $this->generateSignature($request, $authorization)
+     $authorization['oauth_signature'] = $this->generateSignature($request, $authorization);
      //Turn into a url encoded json object
      $jsonAuthorization = json_encode($authorization);
  		return rawurlencode($jsonAuthorization);
