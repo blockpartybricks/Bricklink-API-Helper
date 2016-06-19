@@ -1,11 +1,11 @@
 # PHP-Bricklink-API
 
-A PHP class method to access the Bricklink API using cURL library. 
+A PHP class method to access the Bricklink API using cURL library.
 
 ##Usage
 
 ```
-$BricklinkApi = new BricklinkAPI([
+$BricklinkApi = new /PHPBricklinkApi/BricklinkAPI([
   'tokenValue' => {TOKEN},
   'tokenSecrect' => {TOKEN_SECRET},
   'consumerKey' => {CONSUMER_KEY},
@@ -24,7 +24,7 @@ $response = $BricklinkApi->request({HTTP_METHOD}, {API_PATH}, {PARAMS})
 ### Create A Bricklink Instance
 
 ```
-new BricklinkApi($params);
+new /PHPBricklinkApi/BricklinkApi($params);
 ```
 
 __Returns__
@@ -41,7 +41,6 @@ Passed as an associative array of keys and values. Accepted key values are:
 * *$tokenValue*: The token key from your Bricklink API Access Tokens. Value found at [Bricklink API Registration Page](https://www.bricklink.com/v2/api/register_consumer.page)
 * *$tokenSecret*: The token secret from your Bricklink API Access Tokens. Value found at [Bricklink API Registration Page](https://www.bricklink.com/v2/api/register_consumer.page)
 * *$isDevelopment*: Allows unsecure connections for easier localhost development.
-
 
 
 ### Create a Request
@@ -69,4 +68,3 @@ $BricklinkApi->request($httpMethod, $apiPath, $params)->execute();
 __Returns__
 
 Returns and instance of BricklinkApiResponse
-

@@ -1,5 +1,5 @@
 <?php
- namespace PHPBricklinkAPI;
+ namespace PHPBricklinkApi;
 
  class BricklinkApi{
  	private $endpoint = 'https://api.bricklink.com/api/store/v1';
@@ -18,7 +18,19 @@
  		}
  	}
 
- 	public function request($method, $url, $params=''){
+  public function get($url, $params){
+    return $this->request('GET', $url, $params)->execute();
+  }
+
+  public function post($url, $params){
+    return $this->request('POST', $url, $params)->execute();
+  }
+
+  public function put($url, $params){
+    return $this->request('PUT', $url, $params)->execute();
+  }
+
+ 	public function request($method, $url, $params=[]){
  		 $request = new BricklinkApiRequest([
  		 		'method'=>$method,
  		 		'path'=> $url,

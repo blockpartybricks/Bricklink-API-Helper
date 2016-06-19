@@ -1,5 +1,5 @@
 <?php
-namespace PHPBricklinkAPI;
+namespace PHPBricklinkApi;
 
 class BricklinkApiRequest{
 	public $method = "GET";
