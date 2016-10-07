@@ -85,12 +85,14 @@ class BricklinkApi{
 		$random = substr( md5(rand()), 0, 7);
 		 //Build authorization Object
 		$authorization = [
-		'oauth_version' => $this->oauthVersion,
-		'oauth_consumer_key' => $this->consumerKey,
-		'oauth_token' => $this->tokenValue,
-		'oauth_timestamp' => (string) time(),
-		'oauth_nonce' => $random,
-		'oauth_signature_method' => 'HMAC-SHA1'];
+    'oauth_consumer_key' => $this->consumerKey,
+    'oauth_nonce' => $random,
+    'oauth_signature_method' => 'HMAC-SHA1',
+    'oauth_signature' => null,
+    'oauth_timestamp' => (string) time(),
+    'oauth_token' => $this->tokenValue,
+    'oauth_version' => $this->oauthVersion
+    ];
 		 //Add authorization signature
 		$authorization['oauth_signature'] = $this->generateSignature($request, $authorization);
 		 //Turn into a url encoded json object
