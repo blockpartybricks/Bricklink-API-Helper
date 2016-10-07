@@ -6,10 +6,12 @@ class BricklinkApiResponse{
 	 public $hasError;
 	 public $errorMessage;
 	 public $results;
+	 public $rawRequest;
 	 private $rawResponse;
 
 	 public function __construct($ch, $response){
 		 	$this->rawResponse = $response;
+		 	$this->rawRequest = curl_getinfo($ch)['url'];
 			$responseObject = json_decode($response);
 			$this->code = (string) $responseObject->meta->code;
 
