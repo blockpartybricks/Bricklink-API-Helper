@@ -4,7 +4,7 @@ namespace PHPBricklinkApi;
 class BricklinkApi{
 	private $endpoint = 'https://api.bricklink.com/api/store/v1';
 	private $tokenValue;
-	private $tokenSecrect;
+	private $tokenSecret;
 	private $consumerKey;
 	private $consumerSecret;
 	private $isDevelopment = false;
@@ -108,7 +108,7 @@ class BricklinkApi{
 		$paramterString = http_build_query($parameters);
 
 		$signature_basestring = $request->method.'&'.rawurlencode($this->endpoint.$request->path).'&'.rawurlencode($paramterString);
-		$secretstring = $this->consumerSecret.'&'.$this->tokenSecrect;
+		$secretstring = $this->consumerSecret.'&'.$this->tokenSecret;
 		$signature = base64_encode(hash_hmac('sha1', $signature_basestring, $secretstring, true));
 		return $signature;
 	}
