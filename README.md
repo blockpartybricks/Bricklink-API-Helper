@@ -49,6 +49,25 @@ Passed as an associative array of keys and values. Accepted key values are:
 $BricklinkApi->request($httpMethod, $apiPath, $params);
 ```
 
+A shorthand can also be used to create a request and execute it.
+```
+$BricklinkApi->get($apiPath,$params=[]);
+```
+is equivalent to 
+```
+$BricklinkApi->request("GET", $apiPath, $params);
+```
+And so on for the other common REST methods.
+```
+$BricklinkApi->post($apiPath,$params=[]);
+``` 
+```
+$BricklinkApi->put($apiPath,$params=[]);
+``` 
+```
+$BricklinkApi->delete($apiPath,$params=[]);
+```
+
 __Returns__
 
 Returns your BricklinkApi instance to enable chaining.
@@ -57,7 +76,10 @@ __Parameters__
 
 * *$httpMethod*: Use the common REST methods. i.e. - GET, POST, PUT, DELETE
 * *$apiPath*: The relative path of the api. Should include a leading `/`.
-* *$params*: A string with name value pairs. i.e. - `box=true&instructions=true`
+* *$params*: An associative array, according to the [Bricklink API docs] (http://apidev.bricklink.com/redmine/projects/bricklink-api/wiki). 
+```$params = [
+'box' => true,
+'instructions' => true];```
 
 ### Execute request
 
