@@ -16,7 +16,11 @@ $BricklinkApi = new PHPBricklinkAPI\BricklinkApi([
 //tests follow
 
 //Get Orders Works
-$getOrders = $BricklinkApi->get('/orders');
+//Can't update purged orders in future tests so excluded (yes, this can happen).
+$params = array(
+	'status' => '-purged'
+	);
+$getOrders = $BricklinkApi->get('/orders', $params);
 test_cases($getOrders,"Get Orders");
 
 //Get Order Works
@@ -73,7 +77,7 @@ test_cases($sendDriveThru,"Send Drive Thru");*/
 //Will respond with data about the inventory created
 $testInventory = array(
     'item' => [
-        'no' => 'sw571',
+        'no' => 'sw0571',
         'type' => 'MINIFIG'],
     'color_id' => 0,
     'quantity' => 12,
@@ -101,7 +105,7 @@ test_cases($getInventory,"Get Inventory");
 $testInventory = [
     [
         'item' => [
-            'no' => 'sw571',
+            'no' => 'sw0571',
             'type' => 'MINIFIG'],
         'color_id' => 0,
         'quantity' => 12,
@@ -117,7 +121,7 @@ $testInventory = [
         ],
         [
         'item' => [
-            'no' => 'sw571',
+            'no' => 'sw0571',
             'type' => 'MINIFIG'],
         'color_id' => 0,
         'quantity' => 12,
