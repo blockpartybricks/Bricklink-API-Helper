@@ -7,7 +7,7 @@ A PHP class method to access the Bricklink API using cURL library.
 ```
 $BricklinkApi = new /PHPBricklinkApi/BricklinkAPI([
   'tokenValue' => {TOKEN},
-  'tokenSecrect' => {TOKEN_SECRET},
+  'tokenSecret' => {TOKEN_SECRET},
   'consumerKey' => {CONSUMER_KEY},
   'consumerSecret' => {CONSUMER_SECRET}
 ]);
