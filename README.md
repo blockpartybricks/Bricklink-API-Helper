@@ -67,4 +67,4 @@ $BricklinkApi->request($httpMethod, $apiPath, $params)->execute();
 
 __Returns__
 
-Returns and instance of BricklinkApiResponse
+Returns an instance of BricklinkApiResponse
