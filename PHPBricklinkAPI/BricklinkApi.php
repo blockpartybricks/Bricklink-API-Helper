@@ -30,6 +30,10 @@ class BricklinkApi{
 		return $this->request('PUT', $url, $params)->execute();
 	}
 
+	public function delete($url, $params=[]){
+		return $this->request('DELETE',$url,$params)->execute();
+	}
+
 	public function request($method, $url, $params=[]){
 		$request = new BricklinkApiRequest([
 			'method'=>$method,
@@ -63,12 +67,12 @@ class BricklinkApi{
 		}
 		if($request->method=='PUT')
 		{
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request->params));
 		}
 		if($request->method=='POST')
 		{
 			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($request->params));
 		}
 
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -85,14 +89,14 @@ class BricklinkApi{
 		$random = substr( md5(rand()), 0, 7);
 		 //Build authorization Object
 		$authorization = [
-    'oauth_consumer_key' => $this->consumerKey,
-    'oauth_nonce' => $random,
-    'oauth_signature_method' => 'HMAC-SHA1',
-    'oauth_signature' => null,
-    'oauth_timestamp' => (string) time(),
-    'oauth_token' => $this->tokenValue,
-    'oauth_version' => $this->oauthVersion
-    ];
+			'oauth_consumer_key' => $this->consumerKey,
+			'oauth_nonce' => $random,
+			'oauth_signature_method' => 'HMAC-SHA1',
+			'oauth_signature' => null,
+			'oauth_timestamp' => (string) time(),
+			'oauth_token' => $this->tokenValue,
+			'oauth_version' => $this->oauthVersion
+		];
 		 //Add authorization signature
 		$authorization['oauth_signature'] = $this->generateSignature($request, $authorization);
 		 //Turn into a url encoded json object
@@ -102,8 +106,7 @@ class BricklinkApi{
 
 	private function generateSignature(BricklinkApiRequest $request, array $authorization){
 		$parameters = $authorization;
-		if($request->method=="GET")
-		{
+		if($request->method=="GET"){
 			$parameters = array_merge($parameters, $request->params);
 		}
 		ksort($parameters);
