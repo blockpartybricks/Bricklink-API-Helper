@@ -39,7 +39,7 @@ if (!test_cases($getOrders, "Get Orders")) {
 } else {
     // Use an order that should have been returned.
     print "OrderID is " . $getOrders->results[0]->order_id . ".<br>\n";
-    $getOrder = $BL->get('/orders/' . $getOrders->results[0]->order_id); 
+    $getOrder = $BL->get('/orders/' . $getOrders->results[0]->order_id);
     test_cases($getOrder, "Get Order");
 
     // Get Order Items Works
